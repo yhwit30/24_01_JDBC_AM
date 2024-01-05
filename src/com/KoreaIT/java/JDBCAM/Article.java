@@ -12,10 +12,14 @@ public class Article {
 		this.body = body;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "Article [id=" + id + ", title=" + title + ", body=" + body + "]";
 	}
+
+
 
 	public int getId() {
 		return id;

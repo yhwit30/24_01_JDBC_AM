@@ -35,7 +35,7 @@ public class Main {
 				lastArticleId = id;
 
 				System.out.println(id + "번 글이 등록되었습니다");
-
+				
 			} else if (cmd.equals("article list")) {
 				System.out.println("==목록==");
 				if (articles.size() == 0) {
