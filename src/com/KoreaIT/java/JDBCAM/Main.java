@@ -35,6 +35,13 @@ public class Main {
 				System.out.print("내용 : ");
 				String body = sc.nextLine();
 
+//				Article article = new Article(id, title, body);
+//				articles.add(article);
+
+				lastArticleId = id;
+
+				System.out.println(id + "번 글이 등록되었습니다");
+
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
 					String url = "jdbc:mysql://127.0.0.1:3306/JDBC_AM?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul&useOldAliasMetadataBehavior=true&zeroDateTimeNehavior=convertToNull";
@@ -55,11 +62,6 @@ public class Main {
 					int affectedRow = pstmt.executeUpdate();
 
 					System.out.println("affectedRow : " + affectedRow);
-					
-					lastArticleId = id;
-
-					System.out.println(id + "번 글이 등록되었습니다");
-					
 					continue;
 
 				} catch (ClassNotFoundException e) {
@@ -82,11 +84,6 @@ public class Main {
 						e.printStackTrace();
 					}
 				}
-
-//				Article article = new Article(id, title, body);
-//				articles.add(article);
-
-			
 
 			} else if (cmd.equals("article list")) {
 				System.out.println("==목록==");
