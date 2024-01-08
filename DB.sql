@@ -15,9 +15,32 @@ SHOW TABLES;
 SELECT *
 FROM article;
 
+DESC article;
+
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = CONCAT('제목', RAND()),
 `body` = CONCAT('내용', RAND());
+
+#update article
+#set id = 1;
+
+#select *
+#from article
+#where id = 2;
+
+#update article
+#set regDate = now(),
+#title = 'title2',
+#`body` = 'modified'
+#WHERE id = 2;
+
+DELETE FROM article
+WHERE id = 2;
+
+SELECT *
+FROM article;
+
+

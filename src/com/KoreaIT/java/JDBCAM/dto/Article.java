@@ -1,4 +1,4 @@
-package com.KoreaIT.java.JDBCAM;
+package com.KoreaIT.java.JDBCAM.dto;
 
 public class Article {
 
