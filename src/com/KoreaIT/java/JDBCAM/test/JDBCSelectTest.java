@@ -48,6 +48,7 @@ public class JDBCSelectTest {
 
 			}
 			for (int i = 0; i < articles.size(); i++) {
+				System.out.println();
 				System.out.println("번호 : " + articles.get(i).getId());
 				System.out.println("등록 날짜 : " + articles.get(i).getRegDate());
 				System.out.println("수정 날짜 : " + articles.get(i).getUpdateDate());
