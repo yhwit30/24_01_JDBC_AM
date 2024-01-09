@@ -1,4 +1,4 @@
-package com.KoreaIT.java.JDBCAM.dto;
+package com.KoreaIT.java.JDBCAM;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -31,6 +31,14 @@ public class Article {
 		this.updateDate = (LocalDateTime) articleMap.get("updateDate");
 		this.title = (String) articleMap.get("title");
 		this.body = (String) articleMap.get("body");
+	}
+
+	public LocalDateTime getRegDate() {
+		return regDate;
+	}
+
+	public LocalDateTime getUpdateDate() {
+		return updateDate;
 	}
 
 	public void setRegDate(LocalDateTime regDate) {
