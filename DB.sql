@@ -18,19 +18,20 @@ CREATE TABLE `member`(
     loginPw CHAR(100) NOT NULL,
     `name` TEXT NOT NULL
 );
-SHOW TABLES;
-
-SELECT *
-FROM article;
-
-DESC article;
-DESC `member`;
 
 INSERT INTO article
 SET regDate = NOW(),
 updateDate = NOW(),
 title = CONCAT('제목', RAND()),
 `body` = CONCAT('내용', RAND());
+
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = 'testId',
+loginPw = 'testPw',
+`name` = 'testname';
+############################
 
 #update article
 #set id = 1;
@@ -54,12 +55,6 @@ FROM article;
 SELECT *
 FROM `member`;
 
-INSERT INTO `member`
-SET regDate = NOW(),
-updateDate = NOW(),
-#loginId = 'test',
-loginPw = 'test',
-`name` = 'testname';
 
 
 
