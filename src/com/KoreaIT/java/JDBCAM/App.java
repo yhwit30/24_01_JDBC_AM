@@ -63,6 +63,83 @@ public class App {
 			return -1;
 		}
 
+		if (cmd.equals("member join")) {
+			System.out.println("==회원가입==");
+
+			String loginId = null;
+			String loginPw = null;
+			String name = null;
+
+			while (true) {
+				System.out.print("로그인 아이디 : ");
+				loginId = sc.nextLine();
+				
+				if(loginId.equals("") || loginId.equals(null)) {
+					System.out.println("아이디는 필수입력값입니다.");
+					continue;
+				}
+				
+				SecSql sql = new SecSql();
+
+				sql.append("SELECT *");
+				sql.append("FROM `member`");
+				sql.append("WHERE loginId = ?;", loginId);
+
+				List<Map<String, Object>> memberListMap = DBUtil.selectRows(conn, sql);
+				List<Member> members = new ArrayList<>();
+
+				for (Map<String, Object> memberMap : memberListMap) {
+					members.add(new Member(memberMap));
+				}
+
+				Member member = null;
+				for (int i = 0; i < members.size(); i++) {
+					member = members.get(i);
+				}
+				
+			
+				try {
+					if (member.getLoginId().equals(loginId)) {
+						System.out.println("중복된 아이디입니다.");
+						continue;
+					}
+
+				} catch (NullPointerException e) {
+				}
+
+				break;
+			}
+
+			while (true) {
+				System.out.print("로그인 비밀번호 : ");
+				loginPw = sc.nextLine();
+				System.out.print("로그인 비밀번호 확인 : ");
+				String loginPwConfirm = sc.nextLine();
+				if (!loginPw.equals(loginPwConfirm)) {
+					System.out.println("비밀번호를 다시 확인해주세요.");
+					continue;
+				}
+				break;
+			}
+
+			System.out.print("이름 : ");
+			name = sc.nextLine();
+
+			SecSql sql = new SecSql();
+
+			sql.append("INSERT INTO `member`");
+			sql.append("SET regDate = NOW(),");
+			sql.append("updateDate = NOW(),");
+			sql.append("loginId = ?,", loginId);
+			sql.append("loginPw= ?,", loginPw);
+			sql.append("`name`= ?;", name);
+
+			int id = DBUtil.insert(conn, sql);
+
+			System.out.println(id + "번 회원이 생성되었습니다");
+
+		}
+
 		if (cmd.equals("article write")) {
 			System.out.println("==글쓰기==");
 			System.out.print("제목 : ");
@@ -135,7 +212,7 @@ public class App {
 			System.out.println("==수정==");
 			System.out.print("새 제목 : ");
 			String title = sc.nextLine().trim();
-			System.out.println("새 내용 : ");
+			System.out.print("새 내용 : ");
 			String body = sc.nextLine().trim();
 
 			sql = new SecSql();
@@ -153,6 +230,7 @@ public class App {
 			DBUtil.update(conn, sql);
 
 			System.out.println(id + "번 글이 수정되었습니다.");
+
 		} else if (cmd.startsWith("article detail")) {
 
 			int id = 0;
@@ -223,4 +301,5 @@ public class App {
 
 		return 0;
 	}
+
 }
