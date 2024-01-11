@@ -13,20 +13,27 @@ public class MemberController {
 	}
 
 	public void showProfile() {
-		if (Container.session.loginedMemberId == -1) {
-			System.out.println("로그인 상태가 아님");
+		if (Container.session.isLogined() == false) {
+			System.out.println("로그인 후 이용해줘");
 			return;
-		} else {
-			System.out.println(Container.session.loginedMember);
 		}
+		System.out.println(Container.session.loginedMember);
 	}
 
-	public void doLogout() {
-		// TODO Auto-generated method stub
-
+	public void logout() {
+		if (Container.session.isLogined() == false) {
+			System.out.println("로그인 후 이용해줘");
+			return;
+		}
+		Container.session.logout();
 	}
-	
+
 	public void login() {
+		if (Container.session.isLogined()) {
+			System.out.println("로그아웃 하고 써");
+			return;
+		}
+
 		String loginId = null;
 		String loginPw = null;
 
@@ -43,7 +50,7 @@ public class MemberController {
 			boolean isLoginIdDup = memberService.isLoginIdDup(loginId);
 
 			if (isLoginIdDup == false) {
-				System.out.println(loginId + "는(은) 없는 아이디야");
+				System.out.println(loginId + "는(은) 없는놈이야");
 				continue;
 			}
 
@@ -75,8 +82,7 @@ public class MemberController {
 				continue;
 			}
 
-			Container.session.loginedMember = member;
-			Container.session.loginedMemberId = member.getId();
+			Container.session.login(member);
 
 			System.out.println(member.getName() + "님 환영");
 			break;
@@ -86,6 +92,12 @@ public class MemberController {
 	}
 
 	public void doJoin() {
+
+		if (Container.session.isLogined()) {
+			System.out.println("로그아웃 하고 써");
+			return;
+		}
+		
 		String loginId = null;
 		String loginPw = null;
 		String loginPwConfirm = null;
@@ -152,7 +164,7 @@ public class MemberController {
 			break;
 		}
 
-		memberService.doJoin(loginId, loginPw, name);
+		int id = memberService.doJoin(loginId, loginPw, name);
 
 		System.out.println(name + "님, 가입 되었습니다");
 
