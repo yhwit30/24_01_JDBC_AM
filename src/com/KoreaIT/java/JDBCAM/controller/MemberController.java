@@ -164,7 +164,7 @@ public class MemberController {
 			break;
 		}
 
-		int id = memberService.doJoin(loginId, loginPw, name);
+		memberService.doJoin(loginId, loginPw, name);
 
 		System.out.println(name + "님, 가입 되었습니다");
 
