@@ -1,7 +1,6 @@
 package com.KoreaIT.java.JDBCAM.service;
 
 import java.util.List;
-import java.util.Map;
 
 import com.KoreaIT.java.JDBCAM.container.Container;
 import com.KoreaIT.java.JDBCAM.dao.ArticleDao;
@@ -16,10 +15,10 @@ public class ArticleService {
 	}
 
 	public int doWrite(int memberId, String title, String body) {
-		return articleDao.doWrite(memberId,title, body);
+		return articleDao.doWrite(memberId, title, body);
 	}
 
-	public Map<String, Object> getArticleById(int id) {
+	public Article getArticleById(int id) {
 		return articleDao.getArticleById(id);
 	}
 
