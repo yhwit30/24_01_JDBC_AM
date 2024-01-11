@@ -33,4 +33,27 @@ public class MemberDao {
 		return DBUtil.insert(conn, sql);
 	}
 
+	public String getLoginedName(String loginId) {
+		SecSql sql = new SecSql();
+		sql.append("SELECT `name`");
+		sql.append("FROM `member`");
+		sql.append("WHERE loginId = ?;", loginId);
+
+		String name = DBUtil.selectRowStringValue(conn, sql);
+
+		return name;
+	}
+
+	public String isLoginPwCorrect(String loginId) {
+
+		SecSql sql = new SecSql();
+		sql.append("SELECT loginPw");
+		sql.append("FROM `member`");
+		sql.append("WHERE loginId = ?;", loginId);
+
+		String dbLoginPw = DBUtil.selectRowStringValue(conn, sql);
+
+		return dbLoginPw;
+	}
+
 }

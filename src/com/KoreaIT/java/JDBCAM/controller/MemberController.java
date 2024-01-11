@@ -3,18 +3,20 @@ package com.KoreaIT.java.JDBCAM.controller;
 import java.sql.Connection;
 import java.util.Scanner;
 
+import com.KoreaIT.java.JDBCAM.dto.Member;
 import com.KoreaIT.java.JDBCAM.service.MemberService;
 
 public class MemberController {
 	private Connection conn;
 	private Scanner sc;
-
 	private MemberService memberService;
+	private Member loginedMember;
 
 	public MemberController(Connection conn, Scanner sc) {
 		this.conn = conn;
 		this.sc = sc;
 		this.memberService = new MemberService(conn);
+		this.loginedMember = loginedMember;
 	}
 
 	public void doJoin() {
@@ -91,13 +93,62 @@ public class MemberController {
 	}
 
 	public void doLogin() {
-		// TODO Auto-generated method stub
-		
+		String loginId = null;
+		String loginPw = null;
+
+		System.out.println("==로그인==");
+		while (true) {
+			System.out.print("로그인 아이디 : ");
+			loginId = sc.nextLine().trim();
+
+			if (loginId.length() == 0 || loginId.contains(" ")) {
+				System.out.println("아이디 똑바로 입력해");
+				continue;
+			}
+
+			boolean isLoginIdDup = memberService.isLoginIdDup(loginId);
+
+			if (!isLoginIdDup) {
+				System.out.println(loginId + "는(은) 없는 아이디야");
+				continue;
+			}
+
+			break;
+		}
+
+		int iryMaxCount = 3;
+		int tryCount = 0;
+
+		while (true) {
+			if (tryCount >= iryMaxCount) {
+				tryCount++;
+				System.out.println("다시 확인하고 시도해라");
+				break;
+			}
+
+			System.out.print("비밀번호 : ");
+			loginPw = sc.nextLine().trim();
+
+			boolean isLoginPwCorrect = memberService.isLoginPwCorrect(loginId, loginPw);
+
+			if (isLoginPwCorrect == false) {
+				tryCount++;
+				System.out.println("비밀번호 똑바로 입력해");
+				continue;
+			}
+
+			String name = memberService.getLoginedName(loginId);
+
+			System.out.println(name + "번 회원님 환영합니다");
+
+			break;
+		}
+
 	}
 
 	public void doLogout() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
