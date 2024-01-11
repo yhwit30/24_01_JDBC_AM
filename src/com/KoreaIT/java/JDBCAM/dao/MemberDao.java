@@ -6,7 +6,6 @@ import com.KoreaIT.java.JDBCAM.util.DBUtil;
 import com.KoreaIT.java.JDBCAM.util.SecSql;
 
 public class MemberDao {
-
 	private Connection conn;
 
 	public MemberDao(Connection conn) {
@@ -14,19 +13,16 @@ public class MemberDao {
 	}
 
 	public boolean isLoginIdDup(String loginId) {
-
 		SecSql sql = new SecSql();
 		sql.append("SELECT COUNT(*) > 0");
 		sql.append("FROM `member`");
 		sql.append("WHERE loginId = ?;", loginId);
 
 		return DBUtil.selectRowBooleanValue(conn, sql);
-
 	}
 
 	public int doJoin(String loginId, String loginPw, String name) {
 		SecSql sql = new SecSql();
-
 		sql.append("INSERT INTO `member`");
 		sql.append("SET regDate = NOW(),");
 		sql.append("updateDate = NOW(),");

@@ -14,11 +14,10 @@ public class MemberService {
 
 	public boolean isLoginIdDup(String loginId) {
 		return memberDao.isLoginIdDup(loginId);
-
 	}
 
 	public int doJoin(String loginId, String loginPw, String name) {
-		return memberDao.doJoin(loginId, loginPw, name);
+		return memberDao.doJoin(loginId,loginPw,name);
 	}
 
 }

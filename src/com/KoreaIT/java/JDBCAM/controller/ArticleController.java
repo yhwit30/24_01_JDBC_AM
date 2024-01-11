@@ -1,7 +1,6 @@
 package com.KoreaIT.java.JDBCAM.controller;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -11,8 +10,8 @@ import com.KoreaIT.java.JDBCAM.service.ArticleService;
 import com.KoreaIT.java.JDBCAM.util.Util;
 
 public class ArticleController {
-	Connection conn;
-	Scanner sc;
+	private Connection conn;
+	private Scanner sc;
 
 	private ArticleService articleService;
 
@@ -38,12 +37,7 @@ public class ArticleController {
 	public void showList() {
 		System.out.println("==목록==");
 
-		List<Map<String, Object>> articleListMap = articleService.showList();
-		List<Article> articles = new ArrayList<>();
-
-		for (Map<String, Object> articleMap : articleListMap) {
-			articles.add(new Article(articleMap));
-		}
+		List<Article> articles = articleService.getArticles();
 
 		if (articles.size() == 0) {
 			System.out.println("게시글이 없습니다");
@@ -54,7 +48,6 @@ public class ArticleController {
 		for (Article article : articles) {
 			System.out.printf("  %d     /   %s   \n", article.getId(), article.getTitle());
 		}
-
 	}
 
 	public void doModify(String cmd) {
@@ -68,7 +61,7 @@ public class ArticleController {
 			return;
 		}
 
-		Map<String, Object> articleMap = articleService.getRowById(id);
+		Map<String, Object> articleMap = articleService.getArticleById(id);
 
 		if (articleMap.isEmpty()) {
 			System.out.println(id + "번 글은 없습니다.");
@@ -81,7 +74,7 @@ public class ArticleController {
 		System.out.println("새 내용 : ");
 		String body = sc.nextLine().trim();
 
-		articleService.doModify(id, title, body);
+		articleService.doUpdate(id, title, body);
 
 		System.out.println(id + "번 글이 수정되었습니다.");
 
@@ -100,7 +93,7 @@ public class ArticleController {
 
 		System.out.println("==상세보기==");
 
-		Map<String, Object> articleMap = articleService.getRowById(id);
+		Map<String, Object> articleMap = articleService.getArticleById(id);
 
 		if (articleMap.isEmpty()) {
 			System.out.println(id + "번 글은 없습니다.");
@@ -128,7 +121,7 @@ public class ArticleController {
 			return;
 		}
 
-		Map<String, Object> articleMap = articleService.getRowById(id);
+		Map<String, Object> articleMap = articleService.getArticleById(id);
 
 		if (articleMap.isEmpty()) {
 			System.out.println(id + "번 글은 없습니다.");

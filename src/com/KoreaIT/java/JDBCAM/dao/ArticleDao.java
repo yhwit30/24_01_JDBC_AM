@@ -1,14 +1,15 @@
 package com.KoreaIT.java.JDBCAM.dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.KoreaIT.java.JDBCAM.Article;
 import com.KoreaIT.java.JDBCAM.util.DBUtil;
 import com.KoreaIT.java.JDBCAM.util.SecSql;
 
 public class ArticleDao {
-
 	private Connection conn;
 
 	public ArticleDao(Connection conn) {
@@ -25,23 +26,10 @@ public class ArticleDao {
 		sql.append("title = ?,", title);
 		sql.append("`body`= ?;", body);
 
-		int id = DBUtil.insert(conn, sql);
-
-		return id;
+		return DBUtil.insert(conn, sql);
 	}
 
-	public List<Map<String, Object>> showList() {
-
-		SecSql sql = new SecSql();
-
-		sql.append("SELECT *");
-		sql.append("FROM article");
-		sql.append("ORDER BY id DESC;");
-
-		return DBUtil.selectRows(conn, sql);
-	}
-
-	public Map<String, Object> getRowById(int id) {
+	public Map<String, Object> getArticleById(int id) {
 
 		SecSql sql = new SecSql();
 
@@ -52,8 +40,16 @@ public class ArticleDao {
 		return DBUtil.selectRow(conn, sql);
 	}
 
-	public void doModify(int id, String title, String body) {
+	public void doDelete(int id) {
+		SecSql sql = new SecSql();
 
+		sql.append("DELETE FROM article");
+		sql.append("WHERE id = ?;", id);
+
+		DBUtil.delete(conn, sql);
+	}
+
+	public void doUpdate(int id, String title, String body) {
 		SecSql sql = new SecSql();
 
 		sql.append("UPDATE article");
@@ -70,15 +66,21 @@ public class ArticleDao {
 
 	}
 
-	public void doDelete(int id) {
-
+	public List<Article> getArticles() {
 		SecSql sql = new SecSql();
 
-		sql.append("DELETE FROM article");
-		sql.append("WHERE id = ?;", id);
+		sql.append("SELECT *");
+		sql.append("FROM article");
+		sql.append("ORDER BY id DESC;");
 
-		DBUtil.delete(conn, sql);
+		List<Map<String, Object>> articleListMap = DBUtil.selectRows(conn, sql);
 
+		List<Article> articles = new ArrayList<>();
+
+		for (Map<String, Object> articleMap : articleListMap) {
+			articles.add(new Article(articleMap));
+		}
+		return articles;
 	}
 
 }

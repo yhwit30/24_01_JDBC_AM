@@ -3,21 +3,17 @@ package com.KoreaIT.java.JDBCAM.controller;
 import java.sql.Connection;
 import java.util.Scanner;
 
-import com.KoreaIT.java.JDBCAM.Member;
 import com.KoreaIT.java.JDBCAM.service.MemberService;
-import com.KoreaIT.java.JDBCAM.util.DBUtil;
-import com.KoreaIT.java.JDBCAM.util.SecSql;
 
 public class MemberController {
-	Connection conn;
-	Scanner sc;
-	Member loginedMember = null;
+	private Connection conn;
+	private Scanner sc;
+
 	private MemberService memberService;
 
 	public MemberController(Connection conn, Scanner sc) {
 		this.conn = conn;
 		this.sc = sc;
-		this.loginedMember = loginedMember;
 		this.memberService = new MemberService(conn);
 	}
 
@@ -88,15 +84,6 @@ public class MemberController {
 			break;
 		}
 
-		SecSql sql = new SecSql();
-
-		sql.append("INSERT INTO `member`");
-		sql.append("SET regDate = NOW(),");
-		sql.append("updateDate = NOW(),");
-		sql.append("loginId = ?,", loginId);
-		sql.append("loginPw = ?,", loginPw);
-		sql.append("`name` = ?;", name);
-
 		int id = memberService.doJoin(loginId, loginPw, name);
 
 		System.out.println(id + "번 회원이 가입 되었습니다");
@@ -105,12 +92,12 @@ public class MemberController {
 
 	public void doLogin() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	public void doLogout() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 }
