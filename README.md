@@ -1,6 +1,12 @@
 ## JDBC를 이용한 회원 + 게시글 프로젝트
 
 - JDBC(Java Database Connectivity) : 자바 프로그램 안에서 SQL을 실행하기 위해 데이터베이스를 연결해주는 응용프로그램 인터페이스
+<div>자바코드로(servlet) JDBC를 활용해서 DB에 접근할 수 있다. </div>
+
+
+<img src="https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTNfMTg4/MDAxNTkyMDU1OTkzNTYy.Hi_60IadUnTsiLQ9OBSlCfwoZbDWVHinH74SZ87SDeMg.wtGRFy7g0snJ7tcXOwCg7XEjlbvMOK_e9VHgD1YMr4wg.PNG.haha7037/image.png?type=w800">
+
+<hr>
 
 - 예시로 JDBC 활용 Insert 쿼리 클래스 일부분
 </br></br>
